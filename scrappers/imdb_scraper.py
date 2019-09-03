@@ -1,8 +1,9 @@
 import scrapy
 from scrapy.spiders import Spider
 from urllib.parse import urlparse
+from . import HotTopicsSpider
 
-class IMDbSpider(Spider):
+class IMDbSpider(HotTopicsSpider):
     name = "imdb_movies"
     output_file_name = 'imbd_movies.csv'
 
@@ -10,17 +11,6 @@ class IMDbSpider(Spider):
         'FEED_FORMAT':'csv',
         'FEED_URI': output_file_name
     }
-    
-    def __init__(self, urls_with_categories):
-        self.urls_with_categories = urls_with_categories
-
-    def start_requests(self):
-        for page in self.urls_with_categories:
-            yield scrapy.Request(
-                url = page.url,
-                callback = self.parse,
-                meta = {'category': page.category, 'subcategory': page.subcategory}
-            )
 
     def __get_absolute_url(self, response, relative_url):
         parsed_uri = urlparse(response.url)
