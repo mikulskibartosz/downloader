@@ -57,3 +57,18 @@ Instead of running all Scrapy spiders in the same file, we can split them into m
 Additionally, the spider configuration (page addresses) can be split (so every Airflow task downloads a subset of addresses) to parallelize scraping a single source.
 
 Obviously, in this case, we have to use external shared storage instead of a CSV file because every task will run on a different Airflow worker.
+
+## Monitoring
+
+Assuming that the script runs in Airflow, we can use the built-in monitoring mechanism. It not only sends emails when a task fails but can also trigger a restart of the task in case of a failure. 
+
+Airflow deals with the errors that cause the script to fail, but the monitoring in Airflow will not catch a "business error".
+Such errors occur when the HTML structure of the source changes, and we end up with an empty or invalid file.
+
+Such situations can be detected by implementing a `StatsCollector` in Scrapy (https://docs.scrapy.org/en/latest/topics/stats.html) which sends the number of downloaded items to InfluxDB (or any other storage) + setting up a dashboard in Grafana. We can configure alerts in Grafana to send a notification (as an email or a message in a Slack channel) when the number of collected items differs from the expected value.
+
+To make the notifications even more useful, the Scrapy Spiders can be extended by an "Item pipeline" (https://docs.scrapy.org/en/latest/topics/item-pipeline.html#price-validation-and-dropping-items-with-no-prices) which can validate the extracted content and drop invalid values. Such discarded elements will raise an alert in Grafana because there are not enough items in the output.
+
+## Adding more sources
+
+If more sources (or more URLs from an existing source) are needed, the configuration can be loaded from a database at runtime instead of hardcoding the values in the script.
