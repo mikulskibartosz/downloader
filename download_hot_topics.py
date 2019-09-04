@@ -8,6 +8,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--directory", "-d", help="set the output directory")
 args = parser.parse_args()
 
+output_file_name = 'hot_topics.csv'
+output_file_path = f"{args.directory}/{output_file_name}" if args.directory else output_file_name
+
+if args.directory and not os.path.exists(args.directory):
+    os.makedirs(args.directory)
+
 steam_urls = [
     UrlWithCategories(url = 'https://store.steampowered.com/tags/en/Racing/', category = 'game', subcategory = 'racing'),
     UrlWithCategories(url = 'https://store.steampowered.com/tags/en/Simulation/', category = 'game', subcategory = 'simulation'),
@@ -26,12 +32,6 @@ process = CrawlerProcess({
 process.crawl(SteamSpider, urls_with_categories = steam_urls)
 process.crawl(IMDbSpider, urls_with_categories = imdb_spider)
 process.start()
-
-output_file_name = 'hot_topics.csv'
-output_file_path = f"{args.directory}/{output_file_name}" if args.directory else output_file_name
-
-if args.directory and not os.path.exists(args.directory):
-    os.makedirs(args.directory)
 
 with open(output_file_path, 'w') as output:
     skip_header = False
