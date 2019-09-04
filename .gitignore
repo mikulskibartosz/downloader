@@ -1,4 +1,4 @@
 .pytest_cache
-scrappers/__pycache__
+scrapers/__pycache__
 .vscode
 hot_topics.csv

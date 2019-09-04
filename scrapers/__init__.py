@@ -1,0 +1,4 @@
+from scrapers.url_with_categories import UrlWithCategories
+from scrapers.hot_topics_scraper import HotTopicsSpider
+from scrapers.steam_scraper import SteamSpider
+from scrapers.imdb_scraper import IMDbSpider

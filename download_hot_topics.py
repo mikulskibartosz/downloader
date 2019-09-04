@@ -1,7 +1,7 @@
 import argparse
 import scrapy
 from scrapy.crawler import CrawlerProcess
-from scrappers import UrlWithCategories, SteamSpider, IMDbSpider
+from scrapers import UrlWithCategories, SteamSpider, IMDbSpider
 import os
 
 parser = argparse.ArgumentParser()

@@ -13,6 +13,8 @@ def fake_response(url_with_categories, content):
         request = Request(url = url, meta = {'category': category, 'subcategory': subcategory})
     )
 
+html = open('scrapers/test_data/steam_games_racing.html', 'r').read()
+
 def test_should_return_empty_list_from_empty_input():
     #given
     url = UrlWithCategories('https://store.steampowered.com/tags/en/Racing/', 'game', 'racing')
@@ -28,7 +30,6 @@ def test_should_return_empty_list_from_empty_input():
 def test_should_return_15_results():
     #given
     url = UrlWithCategories('https://store.steampowered.com/tags/en/Racing/', 'game', 'racing')
-    html = open('scrappers/test_data/steam_games_racing.html', 'r').read()
     test_response = fake_response(url, html)
 
     object_under_test = SteamSpider([url])
@@ -43,7 +44,6 @@ def test_should_return_15_results():
 def test_should_return_the_first_element():
     #given
     url = UrlWithCategories('https://store.steampowered.com/tags/en/Racing/', 'game', 'racing')
-    html = open('scrappers/test_data/steam_games_racing.html', 'r').read()
     test_response = fake_response(url, html)
 
     object_under_test = SteamSpider([url])
@@ -65,7 +65,6 @@ def test_should_return_the_first_element():
 def test_should_return_three_elements():
     #given
     url = UrlWithCategories('https://store.steampowered.com/tags/en/Racing/', 'game', 'racing')
-    html = open('scrappers/test_data/steam_games_racing.html', 'r').read()
     test_response = fake_response(url, html)
 
     object_under_test = SteamSpider([url])

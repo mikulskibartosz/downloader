@@ -13,6 +13,8 @@ def fake_response(url_with_categories, content):
         request = Request(url = url, meta = {'category': category, 'subcategory': subcategory})
     )
 
+html = open('scrapers/test_data/imbd_movies_action.html', 'r').read()
+
 def test_should_return_empty_list_from_empty_input():
     #given
     url = UrlWithCategories('https://www.imdb.com/search/title/?genres=action&title_type=feature&explore=genres', 'movie', 'action')
@@ -28,7 +30,6 @@ def test_should_return_empty_list_from_empty_input():
 def test_should_return_50_results():
     #given
     url = UrlWithCategories('https://www.imdb.com/search/title/?genres=action&title_type=feature&explore=genres', 'movie', 'action')
-    html = open('scrappers/test_data/imbd_movies_action.html', 'r').read()
     test_response = fake_response(url, html)
 
     object_under_test = IMDbSpider([url])
@@ -43,7 +44,6 @@ def test_should_return_50_results():
 def test_should_return_the_first_element():
     #given
     url = UrlWithCategories('https://www.imdb.com/search/title/?genres=action&title_type=feature&explore=genres', 'movie', 'action')
-    html = open('scrappers/test_data/imbd_movies_action.html', 'r').read()
     test_response = fake_response(url, html)
 
     object_under_test = IMDbSpider([url])
@@ -63,7 +63,6 @@ def test_should_return_the_first_element():
 def test_should_return_three_elements():
     #given
     url = UrlWithCategories('https://www.imdb.com/search/title/?genres=action&title_type=feature&explore=genres', 'movie', 'action')
-    html = open('scrappers/test_data/imbd_movies_action.html', 'r').read()
     test_response = fake_response(url, html)
 
     object_under_test = IMDbSpider([url])
