@@ -15,7 +15,7 @@ dag = DAG(
     'download_hot_topics',
     description = 'Download hot topics',
     schedule_interval = '0 0 * * *',
-    start_date = datetime(2019, 9, 2),
+    start_date = datetime(2019, 9, 4),
     default_args = default_args
 )
 
