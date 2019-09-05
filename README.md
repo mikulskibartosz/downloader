@@ -72,3 +72,9 @@ To make the notifications even more useful, the Scrapy Spiders can be extended b
 ## Adding more sources
 
 If more sources (or more URLs from an existing source) are needed, the configuration can be loaded from a database at runtime instead of hardcoding the values in the script.
+
+## Decide what to do with duplicates
+
+For example, `CAPCOM GO! Apollo VR Planetarium` game is both simulation and free to play, so it is listed twice with two different categories. Similarly, `Zombieland: Double Tap` movie is both a comedy and an action movie.
+
+In my opinion, merging categories is not the responsibility of the scraper and should be done later in the data pipeline.
